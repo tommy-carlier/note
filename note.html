@@ -15,13 +15,14 @@ textarea { box-sizing:border-box; resize:none; border:none; outline:none;
 <textarea autofocus placeholder="Start typing."></textarea>
 <script>
 if(window.localStorage){
-	var input=document.getElementsByTagName('TEXTAREA')[0],text=localStorage['note.text'];
+	var input=document.getElementsByTagName('TEXTAREA')[0], text=localStorage['note.text'];
 	if(text){
 		input.value=text;
 	}
-	input.oninput=function(){
-		localStorage['note.text']=input.value;
-	};
+	input.addEventListener('input', function(){
+		try { localStorage.setItem('note.text', input.value); }
+		catch(e) { /* storage failed */ }
+	});
 }
 </script>
 </body></html>
