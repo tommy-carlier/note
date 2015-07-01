@@ -2,27 +2,33 @@
 <html lang="en-US" manifest="cache.manifest"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="apple-touch-icon-precomposed" href="note.png">
 <title>Note</title>
 <style>
 html, body, textarea { margin:0; width:100%; height:100% }
 body { overflow:hidden }
 textarea { box-sizing:border-box; resize:none; border:none; outline:none;
-	padding:0.7em; font:normal 14pt/150% 'Avenir','Segoe UI',sans-serif }
+  padding:0.7em; font:normal 14pt/150% 'Avenir','Segoe UI',sans-serif }
 </style>
 </head><body>
 <textarea autofocus placeholder="Start typing."></textarea>
 <script>
 if(window.localStorage){
-	var input=document.getElementsByTagName('TEXTAREA')[0], text=localStorage['note.text'];
-	if(text){
-		input.value=text;
-	}
-	input.addEventListener('input', function(){
-		try { localStorage.setItem('note.text', input.value); }
-		catch(e) { /* storage failed */ }
-	});
+  var d = document,
+      h = location.hash,
+      name = 'note' + h + '.text',
+      input = d.getElementsByTagName('TEXTAREA')[0],
+      text = localStorage[name];
+  if(text){
+    input.value = text;
+  }
+  if(h.length>1){
+    d.title = 'Note ' + h;
+  }
+  input.addEventListener('input', function(){
+    try { localStorage.setItem(name, input.value); }
+    catch(e) { /* storage failed */ }
+  });
 }
 </script>
 </body></html>
